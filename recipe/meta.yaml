@@ -6,18 +6,19 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/cadCAD-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/cadCAD-{{ version }}.tar.gz
   sha256: a411f124977219d1f765164544fef0cab92601e895d687706516b8dd2d5f367f
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 1
+  number: 2
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
+    - setuptools
   run:
     - dill
     - fn
@@ -25,7 +26,7 @@ requirements:
     - numpy
     - pandas
     - pathos
-    - python >=3.6
+    - python >={{ python_min }}
     - pytz
     - six
 
@@ -39,6 +40,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/cadCAD-org/cadCAD
