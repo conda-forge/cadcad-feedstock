@@ -41,7 +41,9 @@ tests:
         - simulations
         - testing
       pip_check: true
-      python_version: ${{ python_min }}
+      python_version:
+        - ${{ python_min }}
+        - "*"
 
 about:
   summary: "cadCAD: a differential games based simulation software package for research, validation, and Computer Aided Design of economic systems"
