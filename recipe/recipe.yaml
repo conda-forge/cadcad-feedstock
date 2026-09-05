@@ -1,0 +1,56 @@
+schema_version: 1
+
+context:
+  name: cadCAD
+  version: "0.4.28"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/cadCAD-${{ version }}.tar.gz
+  sha256: a411f124977219d1f765164544fef0cab92601e895d687706516b8dd2d5f367f
+
+build:
+  number: 3
+  noarch: python
+  script: ${{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - pip
+    - python ${{ python_min }}.*
+    - setuptools
+  run:
+    - dill
+    - fn
+    - funcy
+    - numpy
+    - pandas
+    - pathos
+    - python >=${{ python_min }}
+    - pytz
+    - six
+
+tests:
+  - python:
+      imports:
+        - cadCAD
+        - documentation
+        - simulations
+        - testing
+      pip_check: true
+      python_version:
+        - ${{ python_min }}
+        - "*"
+
+about:
+  summary: "cadCAD: a differential games based simulation software package for research, validation, and Computer Aided Design of economic systems"
+  license: MIT
+  license_file: LICENSE.txt
+  homepage: https://github.com/cadCAD-org/cadCAD
+
+extra:
+  recipe-maintainers:
+    - jan-janssen
